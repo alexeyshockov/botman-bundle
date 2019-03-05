@@ -18,19 +18,21 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class BotManFactory
+class Factory
 {
     private $config;
 
-    /**
-     * @var ContainerInterface
-     */
+    /** @var ContainerInterface */
     private $container;
 
-    public function __construct(array $config, ContainerInterface $container)
+    /** @var RequestStack */
+    private $requestStack;
+
+    public function __construct(array $config, ContainerInterface $container, RequestStack $requestStack)
     {
         $this->config = $config;
         $this->container = $container;
+        $this->requestStack = $requestStack;
 
         $this->loadDrivers($this->config);
     }
@@ -50,16 +52,11 @@ class BotManFactory
         }
     }
 
-    public function create(
-        DriverManager $driverManager,
-        RequestStack $requestStack,
-        CacheInterface $cache,
-        StorageInterface $storageDriver
-    )
+    public function create(DriverManager $driverManager, CacheInterface $cache, StorageInterface $storageDriver)
     {
         // Request in unavailable in CLI, but BotMan requires it. This is a hack, kinda.
         $driver = $driverManager->getMatchingDriver(
-            $requestStack->getCurrentRequest() ?? Request::createFromGlobals()
+            $this->requestStack->getCurrentRequest() ?? Request::createFromGlobals()
         );
 
         $botman = new BotMan($cache, $driver, $this->config, $storageDriver);

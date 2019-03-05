@@ -15,17 +15,13 @@ class WebHookController
     /** @var array */
     private $config;
 
-    public function __construct(BotMan $botman, array $config, iterable $conversations)
+    public function __construct(BotMan $botman, array $config)
     {
         $this->botman = $botman;
         $this->config = $config;
-
-        // Force Symfony DI to create the objects
-        foreach ($conversations as $conversation) {
-        }
     }
 
-    public function listenAction(Request $request)
+    public function listen(Request $request)
     {
         if (DriverManager::verifyServices($this->config, $request)) {
             // Do nothing for such a request, the driver should have already responded

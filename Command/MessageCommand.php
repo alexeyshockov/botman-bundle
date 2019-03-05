@@ -3,13 +3,12 @@
 namespace BotMan\Bundle\Command;
 
 use BotMan\BotMan\BotMan;
-use BotMan\BotMan\Http\Curl;
 use BotMan\Bundle\ConsoleDriver;
+use BotMan\Bundle\Controller\WebHookController;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\Question;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Kernel;
@@ -50,7 +49,7 @@ class MessageCommand extends Command
         $message = $input->getArgument('message');
 
         $request = new Request();
-        $request->attributes->set('_controller', 'botman.webhook_controller::listenAction');
+        $request->attributes->set('_controller', WebHookController::class . '::listen');
 
         $this->driver->initialize($message, $output);
 

@@ -10,6 +10,9 @@ use BotMan\BotMan\Messages\Outgoing\Question;
 use BotMan\BotMan\Users\User;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Simple driver for Symfony Console, to test a bot locally
+ */
 class ConsoleDriver implements DriverInterface
 {
     const DRIVER_NAME = 'Symfony Console';

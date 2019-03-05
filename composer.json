@@ -16,5 +16,8 @@
     },
     "autoload": {
         "psr-4": { "BotMan\\Bundle\\": "" }
+    },
+    "suggest": {
+        "alexeyshockov/botman-annotations": "Configure BotMan using annotations"
     }
 }
