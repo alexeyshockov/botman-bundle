@@ -1,5 +1,5 @@
 {
-    "name": "botman/botman-bundle",
+    "name": "alexeyshockov/botman-bundle",
     "description": "BotMan integration bundle for Symfony Framework",
     "keywords": ["botman", "slack", "telegram", "chatbot"],
     "type": "symfony-bundle",
